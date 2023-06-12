@@ -38,7 +38,7 @@
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Dificuldade</mat-label>
-          <mat-select [formControl]="difficultyFormControl" name="subject">
+          <mat-select [formControl]="difficultyFormControl" name="difficulty">
             <mat-option
               *ngFor="let difficulty of difficulties"
               [value]="difficulty.value"

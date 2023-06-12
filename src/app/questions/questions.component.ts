@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
-import { SpinnerService } from '../Shared/Services/spinner.service';
 import { AppService } from '../app.service';
 import { Pagination } from '../Shared/Interfaces/Pagination';
 import { DisplayQuestion } from '../Shared/Interfaces/DisplayQuestion';
 import { SUBJECTS } from '../Shared/Constants/subjects';
 import { DIFFICULTIES } from '../Shared/Constants/difficulties';
 import { ViewQuestionComponent } from '../view-question/view-question.component';
+import { Subject } from '../Shared/Interfaces/Subject';
+import { Difficulty } from '../Shared/Interfaces/Difficulty';
+import { Debounce } from '../Shared/Utils/Debounce';
 
 @Component({
   templateUrl: 'questions.component.html',
@@ -17,9 +19,15 @@ export class QuestionsComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<QuestionsComponent>,
-    private spinnerService: SpinnerService,
     private appService: AppService
   ) {}
+
+  subjects: Subject[] = SUBJECTS;
+  difficulties: Difficulty[] = DIFFICULTIES;
+
+  questionFilter = '';
+  subjectFilter!: number;
+  difficultyFilter!: number;
 
   displayedColumns: string[] = ['actions', 'subject', 'difficulty', 'content'];
 
@@ -32,10 +40,19 @@ export class QuestionsComponent implements OnInit {
     this.getQuestions(0, 10);
   }
 
+  @Debounce(500)
   getQuestions(pageIndex: number, pageSize: number): void {
-    this.appService.getQuestions(pageIndex, pageSize).subscribe({
-      next: (res) => (this.questions = res),
-    });
+    this.appService
+      .getQuestions(
+        pageIndex,
+        pageSize,
+        this.questionFilter,
+        this.subjectFilter,
+        this.difficultyFilter
+      )
+      .subscribe({
+        next: (res) => (this.questions = res),
+      });
   }
 
   questionsPagination(event?: PageEvent) {

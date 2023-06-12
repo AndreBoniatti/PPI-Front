@@ -29,13 +29,18 @@ export class AppService {
 
   getQuestions(
     pageIndex: number,
-    pageSize: number
+    pageSize: number,
+    filter?: string,
+    subject?: number,
+    difficulty?: number
   ): Observable<Pagination<DisplayQuestion>> {
-    return this.http
-      .get<Pagination<DisplayQuestion>>(
-        `${BASE_URL}/ChatGPT/Question?pageIndex=${pageIndex}&pageSize=${pageSize}`
-      )
-      .pipe(take(1));
+    let url = `${BASE_URL}/ChatGPT/Question?pageIndex=${pageIndex}&pageSize=${pageSize}`;
+
+    if (filter) url += `&filter=${filter}`;
+    if (subject || subject === 0) url += `&subject=${subject}`;
+    if (difficulty || difficulty === 0) url += `&difficulty=${difficulty}`;
+
+    return this.http.get<Pagination<DisplayQuestion>>(url).pipe(take(1));
   }
 
   saveQuestions(data: CreateQuestions): Observable<any> {
