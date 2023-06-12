@@ -1,0 +1,47 @@
+.cards {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 10%;
+}
+
+.new-questions-card,
+.list-questions-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 40vw;
+  height: 50vh;
+  cursor: pointer;
+
+  box-shadow: 0 0 1em black;
+  transition: 1s all;
+}
+
+.new-questions-card:hover,
+.list-questions-card:hover {
+  transform: scale(1.03);
+}
+
+.icon-and-text {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.icon-and-text mat-icon {
+  transform: scale(2.5);
+  margin-bottom: 15%;
+}
+
+.spinner {
+  position: absolute;
+  z-index: 1001;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000e0;
+}

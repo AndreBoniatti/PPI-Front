@@ -1,0 +1,18 @@
+.full-width {
+  width: 100%;
+}
+
+.question-card {
+  margin-top: 25px;
+  color: rgb(33, 33, 33);
+  box-shadow: 0 0 4px black;
+}
+
+.correct-answer {
+  color: rgb(186, 0, 0);
+}
+
+.mat-dialog-actions,
+.mat-card-actions {
+  justify-content: flex-end;
+}

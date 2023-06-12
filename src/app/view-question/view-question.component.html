@@ -1,0 +1,19 @@
+<div mat-dialog-content>
+  <mat-card class="question-card">
+    <mat-card-content>
+      <p>{{ question.content }}</p>
+      <ul>
+        <li
+          *ngFor="let answer of question.answers"
+          type="A"
+          [ngClass]="{ 'correct-answer': answer.correct }"
+        >
+          {{ answer.content }}
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div mat-dialog-actions class="mat-dialog-actions">
+  <button mat-raised-button mat-dialog-close color="basic">Fechar</button>
+</div>
